@@ -1,0 +1,42 @@
+name: Build Wasm Doom
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y emscripten automake libsdl2-dev libsdl2-mixer-dev libsdl2-net-dev unzip wget
+
+      - name: Set up Emscripten
+        run: |
+          git clone https://github.com/emscripten-core/emsdk.git
+          cd emsdk
+          ./emsdk install latest
+          ./emsdk activate latest
+          source ./emsdk_env.sh
+
+      - name: Download and extract Doom WAD
+        run: |
+          wget https://archive.org/download/2020_03_22_DOOM/DOOM%20WADs/Doom%20%28v1.9%29.zip -O doom.zip
+          unzip doom.zip -d doom_files
+          cp doom_files/DOOM.WAD src/doom1.wad
+
+      - name: Build Wasm Doom
+        run: |
+          ./scripts/clean.sh
+          ./scripts/build.sh
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: wasm-doom
+          path: src/
