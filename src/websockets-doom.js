@@ -414,9 +414,10 @@ var dataURIPrefix = "data:application/octet-stream;base64,";
 
 function findWasmBinary() {
   var f = "websockets-doom.wasm";
-  if (!isDataURI(f)) {
-    return locateFile(f);
+  /** if (!isDataURI(f)) {
+   * return locateFile(f);
   }
+   **/
   return f;
 }
 
