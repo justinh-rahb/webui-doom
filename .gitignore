@@ -7,10 +7,6 @@ config.hin
 *.o
 *.a
 Makefile.in
-*.wasm
-*.wasm.map
-*.js
-*.html
 *.html.symbols
 config.h
 config.log
