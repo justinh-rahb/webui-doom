@@ -14,13 +14,7 @@ from config import UPLOAD_DIR
 
 class Pipe:
     class Valves(BaseModel):
-        API_TYPE: str = "ollama"  # Can be "ollama" or "openai"
-        OLLAMA_API_BASE_URL: str = os.getenv(
-            "OLLAMA_API_BASE_URL", "http://localhost:8080/ollama/v1"
-        )
-        OPENAI_API_BASE_URL: str = os.getenv(
-            "OPENAI_API_BASE_URL", "http://localhost:8080/openai/v1"
-        )
+        OPENAI_API_BASE_URL: str = "http://localhost:8080/openai/v1"
         MODEL_NAME: str = "DOOM:latest"
         AUTH_ENDPOINT: str = os.getenv(
             "AUTH_ENDPOINT", "http://localhost:8080/get-bearer-token"
@@ -29,6 +23,7 @@ class Pipe:
         GITHUB_REPO_URL: str = (
             "https://raw.githubusercontent.com/justinh-rahb/webui-doom/main/src/"
         )
+        WAD_FILE_URL: str = f"{GITHUB_REPO_URL}doom1.wad"
         pass
 
     def __init__(self):
@@ -93,7 +88,8 @@ class Pipe:
         ]
 
         # Determine the WAD file to download
-        wad_filename = "doom2.wad" if command == "doom2" else "doom1.wad"
+        # wad_filename = "doom2.wad" if command == "doom2" else "doom1.wad"
+        wad_filename = "doom1.wad"
 
         # Check if the files already exist
         files = Files.get_files()
@@ -234,11 +230,7 @@ class Pipe:
         print(f"call_api:{__name__}")
         print(f"call_api:{body}")
 
-        base_url = (
-            self.valves.OLLAMA_API_BASE_URL
-            if self.valves.API_TYPE == "ollama"
-            else self.valves.OPENAI_API_BASE_URL
-        )
+        base_url = self.valves.OPENAI_API_BASE_URL
         endpoint = "/v1/chat/completions"
 
         try:
