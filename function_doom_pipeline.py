@@ -19,7 +19,6 @@ class Pipe:
         AUTH_ENDPOINT: str = os.getenv(
             "AUTH_ENDPOINT", "http://localhost:8080/get-bearer-token"
         )
-        WEBUI_URL: str = os.getenv("WEBUI_URL", "http://localhost:3000")
         GITHUB_REPO_URL: str = (
             "https://raw.githubusercontent.com/justinh-rahb/webui-doom/main/src/"
         )
@@ -73,7 +72,7 @@ class Pipe:
         return file.id
 
     def get_file_url(self, file_id: str) -> str:
-        return f"{self.valves.WEBUI_URL}/api/v1/files/{file_id}/content"
+        return f"/api/v1/files/{file_id}/content"
 
     def responses(
         self, command: str, messages: list
