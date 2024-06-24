@@ -1,7 +1,18 @@
+"""
+title: DOOM
+author: justinh-rahb
+author_url: https://github.com/justinh-rahb/webui-doom
+funding_url: https://github.com/justinh-rahb/webui-doom
+version: 0.1.7
+"""
+
 from pydantic import BaseModel
 from typing import Union, Generator, Iterator, Dict
 from utils.misc import get_last_user_message
 from apps.webui.models.files import Files
+from apps.webui.models.users import Users
+
+from main import generate_chat_completions
 
 import requests
 import time
@@ -14,11 +25,9 @@ from config import UPLOAD_DIR
 
 class Pipe:
     class Valves(BaseModel):
-        OPENAI_API_BASE_URL: str = "http://localhost:8080/openai/v1"
-        MODEL_NAME: str = "DOOM:latest"
-        AUTH_ENDPOINT: str = os.getenv(
-            "AUTH_ENDPOINT", "http://localhost:8080/get-bearer-token"
-        )
+        MODEL_ID: str = "DOOM:latest"
+        MODEL_NAME: str = "DOOM"
+        FALLBACK_MODEL_ID: str = "llama3:latest"
         GITHUB_REPO_URL: str = (
             "https://raw.githubusercontent.com/justinh-rahb/webui-doom/main/src/"
         )
@@ -28,18 +37,11 @@ class Pipe:
     def __init__(self):
         self.type = "manifold"
         self.valves = self.Valves()
-        self.pipes = [{"name": self.valves.MODEL_NAME, "id": self.valves.MODEL_NAME}]
         self.token = None
         pass
 
-    def get_bearer_token(self) -> str:
-        try:
-            response = requests.post(self.valves.AUTH_ENDPOINT)
-            response.raise_for_status()
-            self.token = response.json().get("token")
-            return self.token
-        except requests.RequestException as e:
-            raise Exception(f"Error fetching bearer token: {str(e)}")
+    def pipes(self):
+        return [{"name": self.valves.MODEL_NAME, "id": self.valves.MODEL_ID}]
 
     def create_file(
         self, file_name: str, title: str, content: Union[str, bytes], content_type: str
@@ -194,9 +196,8 @@ class Pipe:
         except Exception as e:
             raise Exception(f"Error handling {file_name}: {str(e)}")
 
-    def pipe(self, body: dict, __user__: dict) -> Union[str, Generator, Iterator]:
+    async def pipe(self, body: dict, __user__: dict) -> Union[str, Generator, Iterator]:
         print(f"pipe:{__name__}")
-
         self.user_id = __user__["id"]
 
         messages = body["messages"]
@@ -209,38 +210,15 @@ class Pipe:
         else:
             print("No command found - calling API")
 
-        headers = {}
-        headers["Content-Type"] = "application/json"
-        headers["Authorization"] = f"Bearer {self.get_bearer_token()}"
+            # Call the API based on the API_TYPE
+            payload = {
+                "model": self.valves.FALLBACK_MODEL_ID,
+                "messages": body["messages"],
+                "stream": body.get("stream", False),
+            }
 
-        model_id = body["model"][body["model"].find(".") + 1 :]
-        payload = {**body, "model": model_id}
+            print(f"call_api:{__name__}")
+            print(f"call_api:{payload}")
 
-        return self.call_api(body, headers, payload)
-
-    def call_api(
-        self, body: dict, headers: dict, payload: dict
-    ) -> Union[str, dict, Generator, Iterator]:
-        # Call the API based on the API_TYPE
-        print(f"call_api:{__name__}")
-        print(f"call_api:{body}")
-
-        base_url = self.valves.OPENAI_API_BASE_URL
-        endpoint = "/v1/chat/completions"
-
-        try:
-            r = requests.post(
-                url=f"{base_url}{endpoint}",
-                json=payload,
-                headers=headers,
-                stream=True,
-            )
-
-            r.raise_for_status()
-
-            if body["stream"]:
-                return r.iter_lines()
-            else:
-                return r.json()
-        except Exception as e:
-            return f"Error: {e}"
+            user = Users.get_user_by_id(__user__["id"])
+            return await generate_chat_completions(form_data=payload, user=user)
