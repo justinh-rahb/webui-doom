@@ -2,7 +2,7 @@
 
 This is a [Chocolate Doom][1] WebAssembly port with WebSockets [support][4] for [Open WebUI](https://github.com/open-webui/open-webui) Functions platform.
 
-# Greetz and Credits
+## Greetz and Credits
 
 We couldn't have brought DOOM to your WebUI without the legendary contributions and inspirations from the following awesome folks and projects:
 
