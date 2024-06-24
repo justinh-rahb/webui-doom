@@ -1,6 +1,18 @@
-# Wasm Doom
+# WebUI Doom
 
-This is a [Chocolate Doom][1] WebAssembly port with WebSockets [support][4].
+This is a [Chocolate Doom][1] WebAssembly port with WebSockets [support][4] for [Open WebUI](https://github.com/open-webui/open-webui) Functions platform.
+
+# Greetz and Credits
+
+We couldn't have brought DOOM to your web browser without the legendary contributions and inspirations from the following awesome folks and projects:
+
+- **John Carmack, John Romero, and the rest of the iD Software team** for creating the original DOOM and revolutionizing gaming forever.
+- **Cloudflare's WASM port of Chocolate Doom** for making this web-based adaptation possible. Check out their work [here](https://github.com/cloudflare/doom-wasm).
+- **Tim** for creating the beautiful monster that is [Open WebUI](http://github.com/open-webui/open-webui), the original Snake game implementation, and his final push over my roadblock to getting this to actually work.
+- **Pad** for the improved Snake game that inspired our implementation of DOOM.
+- **Everyone else on the [Open WebUI Discord](https://discord.gg/5rJgQTnV4s)** for their ideas, suggestions, and unending encouragement and support.
+
+It couldn't have been done without all of these people. Thank you!
 
 ## Requirements
 
