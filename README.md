@@ -4,7 +4,7 @@ This is a [Chocolate Doom][1] WebAssembly port with WebSockets [support][4] for 
 
 # Greetz and Credits
 
-We couldn't have brought DOOM to your web browser without the legendary contributions and inspirations from the following awesome folks and projects:
+We couldn't have brought DOOM to your WebUI without the legendary contributions and inspirations from the following awesome folks and projects:
 
 - **John Carmack, John Romero, and the rest of the iD Software team** for creating the original DOOM and revolutionizing gaming forever.
 - **Cloudflare's WASM port of Chocolate Doom** for making this web-based adaptation possible. Check out their work [here](https://github.com/cloudflare/doom-wasm).
