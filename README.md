@@ -1,6 +1,6 @@
 # WebUI Doom
 
-https://github.com/justinh-rahb/webui-doom/assets/52832301/85a16c90-8b40-45fa-8cbe-e767726ff7a2
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/KQbAAb8_UYQ/0.jpg)](https://www.youtube.com/watch?v=KQbAAb8_UYQ)
 
 This is a [Chocolate Doom][1] WebAssembly port with WebSockets [support][4] for [Open WebUI](https://github.com/open-webui/open-webui) Functions platform.
 
