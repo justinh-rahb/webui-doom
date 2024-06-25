@@ -3,7 +3,7 @@ title: DOOM
 author: justinh-rahb
 author_url: https://github.com/justinh-rahb/webui-doom
 funding_url: https://github.com/justinh-rahb/webui-doom
-version: 0.1.7
+version: 6.6.6r7
 """
 
 from pydantic import BaseModel
