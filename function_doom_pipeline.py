@@ -3,10 +3,10 @@ title: DOOM
 author: justinh-rahb
 author_url: https://github.com/justinh-rahb/webui-doom
 funding_url: https://github.com/justinh-rahb/webui-doom
-version: 6.6.6r7
+version: 6.6.6r8
 """
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Union, Generator, Iterator, Dict
 from utils.misc import get_last_user_message
 from apps.webui.models.files import Files
@@ -24,14 +24,27 @@ from config import UPLOAD_DIR
 
 
 class Pipe:
-    class Valves(BaseModel):
-        MODEL_ID: str = "DOOM:latest"
-        MODEL_NAME: str = "DOOM"
-        FALLBACK_MODEL_ID: str = "llama3:latest"
-        GITHUB_REPO_URL: str = (
-            "https://raw.githubusercontent.com/justinh-rahb/webui-doom/main/src/"
+    class CommonValves(BaseModel):
+        WAD_FILE_URL: str = Field(
+            default="https://raw.githubusercontent.com/justinh-rahb/webui-doom/main/src/doom1.wad",
+            description="Bring your own .WAD file!",
         )
-        WAD_FILE_URL: str = f"{GITHUB_REPO_URL}doom1.wad"
+
+    class Valves(CommonValves):
+        MODEL_ID: str = Field(
+            default="DOOM:latest", description="Identifier for the DOOM model."
+        )
+        MODEL_NAME: str = Field(default="DOOM", description="Name for the DOOM model.")
+        FALLBACK_MODEL_ID: str = Field(
+            default="llama3:latest", description="Title-generation model."
+        )
+        GITHUB_REPO_URL: str = Field(
+            default="https://raw.githubusercontent.com/justinh-rahb/webui-doom/main/src/",
+            description="Base URL to load assets from.",
+        )
+        pass
+
+    class UserValves(CommonValves):
         pass
 
     def __init__(self):
