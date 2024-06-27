@@ -15,7 +15,7 @@ This is a [Chocolate Doom][1] WebAssembly port with WebSockets [support][4] for 
 2. (Optional) Download the [model configuration](model-DOOM_latest.json) and import it in **Workspace > Models**
 
 3. (Optional) To use your own WAD file:
-   - Host your WAD file anywhere accessible via URL
+   - Host your .WAD file anywhere accessible via URL
    - Update the WAD URL in the function's Valves configuration
 
 4. Launch the game by typing `/play doom` into the chat
@@ -32,7 +32,9 @@ We couldn't have brought DOOM to your WebUI without the legendary contributions 
 - **Pad** for the improved Snake game that inspired our implementation of DOOM.
 - **Everyone else on the [Open WebUI Discord](https://discord.gg/5rJgQTnV4s)** for their ideas, suggestions, and unending encouragement and support.
 
-It couldn't have been done without all of these people. Thank you!
+> *It couldn't have been done without all of these people. Thank you!*
+>
+> *-J*
 
 ## Building Your Own
 
@@ -57,7 +59,7 @@ There are two scripts to facilitate compiling Wasm Doom:
 
 ### Running
 
-**1. Place WAD File:** Put your DOOM WAD file (e.g., `doom1.wad`) in the `src` directory of your fork or clone of this repo.
+**1. Place WAD File:** Put your DOOM .WAD file (e.g., `doom1.wad`) in the `src` directory of your fork or clone of this repo.
 
 **2. Install and Configure:**
    * Follow the [installation steps](#install-doom-for-open-webui) above.
@@ -66,11 +68,11 @@ There are two scripts to facilitate compiling Wasm Doom:
    * In **Workspace > Functions**, click the gear icon for the DOOM function.
    * Set these values:
      - **Git Repo URL:** `https://github.com/yourusername/open-webui/tree/main/src`
-     - **WAD URL:** `https://github.com/yourusername/open-webui/raw/main/src/doom1.wad` (use your WAD filename)
+     - **WAD URL:** `https://github.com/yourusername/open-webui/raw/main/src/doom1.wad` (use your .WAD filename)
 
 **4. Launch DOOM:**
    * Type `/play doom` in the chat.
-   * Enjoy DOOM with your custom WAD!
+   * Enjoy DOOM with your custom .WAD!
 
 ## stdout procotol
 
@@ -93,7 +95,7 @@ doom: 12, client '%s' timed out and disconnected
 
 ## License
 
-Chocolate Doom and this port are distributed under the GNU GPL. See the COPYING file for more information.
+Chocolate Doom and this port are distributed under the GNU GPL. See the [COPYING.md](COPYING.md) file for more information.
 
 [1]: https://github.com/chocolate-doom/chocolate-doom
 [2]: https://emscripten.org/
