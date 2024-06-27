@@ -3,7 +3,7 @@ title: DOOM
 author: justinh-rahb
 author_url: https://github.com/justinh-rahb/webui-doom
 funding_url: https://github.com/justinh-rahb/webui-doom
-version: 6.6.6r8
+version: 6.6.6r9
 """
 
 from pydantic import BaseModel, Field
@@ -24,13 +24,7 @@ from config import UPLOAD_DIR
 
 
 class Pipe:
-    class CommonValves(BaseModel):
-        WAD_FILE_URL: str = Field(
-            default="https://raw.githubusercontent.com/justinh-rahb/webui-doom/main/src/doom1.wad",
-            description="Bring your own .WAD file!",
-        )
-
-    class Valves(CommonValves):
+    class Valves(BaseModel):
         MODEL_ID: str = Field(
             default="DOOM:latest", description="Identifier for the DOOM model."
         )
@@ -42,10 +36,10 @@ class Pipe:
             default="https://raw.githubusercontent.com/justinh-rahb/webui-doom/main/src/",
             description="Base URL to load assets from.",
         )
-        pass
-
-    class UserValves(CommonValves):
-        pass
+        WAD_FILE_URL: str = Field(
+            default="https://raw.githubusercontent.com/justinh-rahb/webui-doom/main/src/doom1.wad",
+            description="Bring your own .WAD file!",
+        )
 
     def __init__(self):
         self.type = "manifold"
@@ -193,7 +187,7 @@ class Pipe:
             )
 
         for response in list_of_responses:
-            time.sleep(1)
+            time.sleep(0.5)
             yield response
 
         return "Done"

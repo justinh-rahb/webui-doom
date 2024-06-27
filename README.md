@@ -1,8 +1,26 @@
-# WebUI Doom
+# Open WebUI DOOM
 
 https://github.com/justinh-rahb/webui-doom/assets/52832301/d415c053-aa05-4d3c-9074-6c98aba16f37
 
 This is a [Chocolate Doom][1] WebAssembly port with WebSockets [support][4] for [Open WebUI](https://github.com/open-webui/open-webui) Functions platform.
+
+## Install DOOM for Open WebUI
+
+1. Download the [exported function](function-doom_pipeline.json) and import it in **Workspace > Functions**
+
+   OR
+
+   Copy the [source code](function_doom_pipeline.py) and paste into a new function.
+
+2. (Optional) Download the [model configuration](model-DOOM_latest.json) and import it in **Workspace > Models**
+
+3. (Optional) To use your own WAD file:
+   - Host your WAD file anywhere accessible via URL
+   - Update the WAD URL in the function's Valves configuration
+
+4. Launch the game by typing `/play doom` into the chat
+
+5. Play DOOM!
 
 ## Greetz and Credits
 
@@ -16,7 +34,9 @@ We couldn't have brought DOOM to your WebUI without the legendary contributions 
 
 It couldn't have been done without all of these people. Thank you!
 
-## Requirements
+## Building Your Own
+
+### Requirements
 
 You need to install Emscripten and a few other tools first:
 
@@ -26,7 +46,7 @@ brew install automake
 brew install sdl2 sdl2_mixer sdl2_net
 ```
 
-## Compiling
+### Compiling
 
 There are two scripts to facilitate compiling Wasm Doom:
 
@@ -35,24 +55,22 @@ There are two scripts to facilitate compiling Wasm Doom:
 ./scripts/build.sh
 ```
 
-## Running
+### Running
 
-Copy the shareware version of [doom1.wad][3] to [./src][9] (make sure it has the name doom1.wad)
+**1. Place WAD File:** Put your DOOM WAD file (e.g., `doom1.wad`) in the `src` directory of your fork or clone of this repo.
 
-Then:
+**2. Install and Configure:**
+   * Follow the [installation steps](#install-doom-for-open-webui) above.
 
-```
-cd src
-python -m SimpleHTTPServer
-```
+**3. Configure Valves:**
+   * In **Workspace > Functions**, click the gear icon for the DOOM function.
+   * Set these values:
+     - **Git Repo URL:** `https://github.com/yourusername/open-webui/tree/main/src`
+     - **WAD URL:** `https://github.com/yourusername/open-webui/raw/main/src/doom1.wad` (use your WAD filename)
 
-Then open your browser and point it to http://0.0.0.0:8000/
-
-Doom should start (local mode, no network). Check [doom-workers][8] if you want to run multiplayer locally.
-
-Inspect [src/index.html][6] for startup details.
-
-Check our live multiplayer [demo][5] and [blog post][7].
+**4. Launch DOOM:**
+   * Type `/play doom` in the chat.
+   * Enjoy DOOM with your custom WAD!
 
 ## stdout procotol
 
