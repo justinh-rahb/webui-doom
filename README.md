@@ -67,8 +67,8 @@ There are two scripts to facilitate compiling Wasm Doom:
 **3. Configure Valves:**
    * In **Workspace > Functions**, click the gear icon for the DOOM function.
    * Set these values:
-     - **Git Repo URL:** `https://github.com/yourusername/open-webui/tree/main/src`
-     - **WAD URL:** `https://github.com/yourusername/open-webui/raw/main/src/doom1.wad` (use your `.WAD` filename)
+     - **Git Repo URL:** `https://raw.githubusercontent.com/yourusername/webui-doom/tree/main/src` (use the raw content CDN)
+     - **WAD URL:** `https://raw.githubusercontent.com/yourusername/webui-doom/tree/main/src/doom1.wad` (use your `.WAD` filename)
 
 **4. Launch DOOM:**
    * Type `/play doom` in the chat.
